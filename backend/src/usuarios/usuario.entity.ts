@@ -1,5 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from 'typeorm';
-
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import {Equipo} from '../equipo/equipo.entity'
 @Entity('usuarios')
 export class Usuario {
     @PrimaryGeneratedColumn()
@@ -17,4 +17,7 @@ export class Usuario {
     @Column({ default: 'entrenador' })
     rol: string;
 
+
+    @OneToMany(() => Equipo, (equipo) => equipo.usuario_creador)
+    equipos_creados: Equipo[];
 }

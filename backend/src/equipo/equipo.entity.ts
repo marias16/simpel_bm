@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
 import { Club } from '../clubs/club.entity';
 import { Usuario } from '../usuarios/usuario.entity';
+import { Horario } from '../horarios/horario.entity';
 
 @Entity('equipos') 
 export class Equipo {
@@ -26,5 +27,8 @@ export class Equipo {
     @ManyToOne(() => Usuario)
     @JoinColumn({ name: 'id_usuario'})
     usuario_creador: Usuario;
+
+    @OneToMany(() => Horario, (horario) => horario.equipo)
+        horarios: Horario[];
 
 }
