@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, JoinColumn } from 'typeorm';
-import { Ejercicio } from '../ejercicios/ejercicio.entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
+import { Ejercicio } from '../ejercicios/ejercicio.entity'
 
 @Entity('categorias') 
 export class Categoria {
@@ -9,4 +9,7 @@ export class Categoria {
     @Column()
     nombre: string;
 
+    @ManyToMany(() => Ejercicio,
+        (ejercicio) => ejercicio.categorias)
+        ejercicios: Ejercicio[];
 }
