@@ -9,16 +9,16 @@ export class Equipo {
     id_equipo: number;
 
     @Column()
-    categoria: String;
+    categoria: string;
 
     @Column()
-    genero: String;
+    genero: string;
 
     @Column()
-    letra: String;
+    letra: string;
 
     @Column()
-    color: String;
+    color: string;
 
     @ManyToOne(() => Club)
     @JoinColumn({ name: 'id_club'})
