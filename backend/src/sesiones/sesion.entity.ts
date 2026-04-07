@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { Usuario } from '../usuarios/usuario.entity';
 import { SesionEjercicio } from 'src/sesion-ejercicio/sesion-ejercicio.entity';
-
+import { EquipoSesion } from 'src/equipo-sesion/equipo-sesion.entity';
 
 @Entity('sesiones') 
 export class Sesion {
@@ -28,7 +28,10 @@ export class Sesion {
 
     @OneToMany(() => SesionEjercicio, (sesion_ejercicio) => sesion_ejercicio.sesion)
     sesion_ejercicio: SesionEjercicio[];
-    
+
+    @OneToMany(() => EquipoSesion, (equipo_sesion) => equipo_sesion.sesion)
+    equipo_sesion: EquipoSesion[];
+
     @ManyToOne(() => Usuario)
     @JoinColumn({ name: 'id_usuario'})
     usuario_creador: Usuario;
