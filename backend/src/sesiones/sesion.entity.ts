@@ -1,5 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { Usuario } from '../usuarios/usuario.entity';
+import { SesionEjercicio } from 'src/sesion-ejercicio/sesion-ejercicio.entity';
+
 
 @Entity('sesiones') 
 export class Sesion {
@@ -24,8 +26,12 @@ export class Sesion {
     @Column()
     prueba: boolean;
 
+    @OneToMany(() => SesionEjercicio, (sesion_ejercicio) => sesion_ejercicio.sesion)
+    sesion_ejercicio: SesionEjercicio[];
+    
     @ManyToOne(() => Usuario)
     @JoinColumn({ name: 'id_usuario'})
     usuario_creador: Usuario;
 
+    
 }

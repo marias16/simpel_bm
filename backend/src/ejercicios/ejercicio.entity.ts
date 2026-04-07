@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, JoinTable, ManyToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn, JoinTable, ManyToMany } from 'typeorm';
 import { Usuario } from '../usuarios/usuario.entity';
 import { Categoria } from '../categorias/categoria.entity';
+import { SesionEjercicio } from '../sesion-ejercicio/sesion-ejercicio.entity'
 
 @Entity('ejercicios') 
 export class Ejercicio {
@@ -15,6 +16,9 @@ export class Ejercicio {
 
     @Column()
     descripcion: string;
+
+    @OneToMany(() => SesionEjercicio, (sesion_ejercicio) => sesion_ejercicio.sesion)
+    sesion_ejercicio: SesionEjercicio[];
 
     @ManyToOne(() => Usuario)
     @JoinColumn({ name: 'id_usuario'})
