@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { ClubsModule } from './clubs/club.module';
 import { EquiposModule } from './equipo/equipo.module';
 import { HorariosModule } from './horarios/horario.module';
+import { CategoriasModule } from './categorias/categoria.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -17,7 +18,8 @@ import { HorariosModule } from './horarios/horario.module';
   AuthModule,
   ClubsModule,
   EquiposModule,
-  HorariosModule
+  HorariosModule,
+  CategoriasModule
 ],
 
   controllers: [AppController],
