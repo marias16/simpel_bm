@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { ClubsModule } from './clubs/club.module';
+import { EquiposModule } from './equipo/equipo.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -13,7 +14,8 @@ import { ClubsModule } from './clubs/club.module';
     synchronize: true,
   }),
   AuthModule,
-  ClubsModule
+  ClubsModule,
+  EquiposModule,
 ],
 
   controllers: [AppController],
