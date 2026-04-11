@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { ClubsModule } from './clubs/club.module';
 import { EquiposModule } from './equipo/equipo.module';
+import { HorariosModule } from './horarios/horario.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -16,6 +17,7 @@ import { EquiposModule } from './equipo/equipo.module';
   AuthModule,
   ClubsModule,
   EquiposModule,
+  HorariosModule
 ],
 
   controllers: [AppController],
