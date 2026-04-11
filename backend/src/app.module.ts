@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { ClubsModule } from './clubs/club.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -12,6 +13,7 @@ import { AuthModule } from './auth/auth.module';
     synchronize: true,
   }),
   AuthModule,
+  ClubsModule
 ],
 
   controllers: [AppController],
