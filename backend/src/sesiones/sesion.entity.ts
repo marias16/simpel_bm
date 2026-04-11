@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { Usuario } from '../usuarios/usuario.entity';
-import { SesionEjercicio } from 'src/sesion-ejercicio/sesion-ejercicio.entity';
-import { EquipoSesion } from 'src/equipo-sesion/equipo-sesion.entity';
+import { SesionEjercicio } from '../sesion-ejercicio/sesion-ejercicio.entity';
+import { EquipoSesion } from '../equipo-sesion/equipo-sesion.entity';
 
 @Entity('sesiones') 
 export class Sesion {

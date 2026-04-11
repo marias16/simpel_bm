@@ -2,7 +2,8 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, JoinColum
 import { Club } from '../clubs/club.entity';
 import { Usuario } from '../usuarios/usuario.entity';
 import { Horario } from '../horarios/horario.entity';
-import { EquipoSesion } from 'src/equipo-sesion/equipo-sesion.entity';
+import { EquipoSesion } from '../equipo-sesion/equipo-sesion.entity';
+
 @Entity('equipos') 
 export class Equipo {
     @PrimaryGeneratedColumn()
