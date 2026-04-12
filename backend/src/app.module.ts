@@ -13,6 +13,9 @@ import { SesionEjercicioModule } from './sesion-ejercicio/sesion-ejercicio.modul
 import { EquipoSesionModule } from './equipo-sesion/equipo-sesion.module';
 import { UsuarioModule } from './usuarios/usuario.module';
 
+
+
+
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: 'sqlite',
@@ -29,7 +32,7 @@ import { UsuarioModule } from './usuarios/usuario.module';
   SesionesModule,
   SesionEjercicioModule,
   EquipoSesionModule,
-  UsuarioModule
+  UsuarioModule,
 ],
 
   controllers: [AppController],

@@ -1,7 +1,10 @@
 import { Controller, Post, Get, Delete, Body, Param } from '@nestjs/common';
 import { CategoriasService } from './categoria.service';
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('categorias')
+@UseGuards(AuthGuard('jwt'))
 export class CategoriasController {
   constructor(private categoriasService: CategoriasService) {}
 

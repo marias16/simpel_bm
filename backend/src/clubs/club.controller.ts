@@ -1,7 +1,10 @@
 import { Controller, Post, Get, Delete, Body, Param } from '@nestjs/common';
 import { ClubsService } from './club.service';
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('clubs')
+@UseGuards(AuthGuard('jwt'))
 export class ClubsController {
   constructor(private clubsService: ClubsService) {}
 

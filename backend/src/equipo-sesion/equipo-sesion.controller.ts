@@ -1,7 +1,10 @@
 import { Controller, Post, Get, Delete, Body, Param } from '@nestjs/common';
 import { EquipoSesionService } from './equipo-sesion.service';
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('equipo-sesion')
+@UseGuards(AuthGuard('jwt'))
 export class EquipoSesionController {
   constructor(private equipoSesionService: EquipoSesionService) {}
 
