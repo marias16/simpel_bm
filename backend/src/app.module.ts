@@ -11,6 +11,7 @@ import { EjerciciosModule } from './ejercicios/ejercicio.module';
 import { SesionesModule } from './sesiones/sesion.module';
 import { SesionEjercicioModule } from './sesion-ejercicio/sesion-ejercicio.module';
 import { EquipoSesionModule } from './equipo-sesion/equipo-sesion.module';
+import { UsuarioModule } from './usuarios/usuario.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -27,7 +28,8 @@ import { EquipoSesionModule } from './equipo-sesion/equipo-sesion.module';
   EjerciciosModule,
   SesionesModule,
   SesionEjercicioModule,
-  EquipoSesionModule
+  EquipoSesionModule,
+  UsuarioModule
 ],
 
   controllers: [AppController],
