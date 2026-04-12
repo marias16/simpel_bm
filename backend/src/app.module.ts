@@ -10,6 +10,7 @@ import { CategoriasModule } from './categorias/categoria.module';
 import { EjerciciosModule } from './ejercicios/ejercicio.module';
 import { SesionesModule } from './sesiones/sesion.module';
 import { SesionEjercicioModule } from './sesion-ejercicio/sesion-ejercicio.module';
+import { EquipoSesionModule } from './equipo-sesion/equipo-sesion.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -26,6 +27,7 @@ import { SesionEjercicioModule } from './sesion-ejercicio/sesion-ejercicio.modul
   EjerciciosModule,
   SesionesModule,
   SesionEjercicioModule,
+  EquipoSesionModule
 ],
 
   controllers: [AppController],
