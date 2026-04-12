@@ -8,6 +8,7 @@ import { EquiposModule } from './equipo/equipo.module';
 import { HorariosModule } from './horarios/horario.module';
 import { CategoriasModule } from './categorias/categoria.module';
 import { EjerciciosModule } from './ejercicios/ejercicio.module';
+import { SesionesModule } from './sesiones/sesion.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -21,7 +22,8 @@ import { EjerciciosModule } from './ejercicios/ejercicio.module';
   EquiposModule,
   HorariosModule,
   CategoriasModule,
-  EjerciciosModule
+  EjerciciosModule,
+  SesionesModule
 ],
 
   controllers: [AppController],
