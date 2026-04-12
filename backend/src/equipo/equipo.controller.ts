@@ -37,6 +37,11 @@ export class EquiposController {
     return this.equiposService.findOne(+id);
   }
 
+  @Get('usuario/:id')
+  findByUsuario(@Param('id') id: string) {
+  return this.equiposService.findByUsuario(+id);
+  }
+
   @Delete(':id')
   eliminar(@Param('id') id: string) {
     return this.equiposService.eliminar(+id);

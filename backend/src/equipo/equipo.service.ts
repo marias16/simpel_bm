@@ -49,6 +49,13 @@ export class EquiposService {
     return equipo;
   }
 
+  async findByUsuario(id_usuario: number) {
+  return this.equipoRepository.find({
+    where: { usuario_creador: { id_usuario } },
+    relations: ['club', 'usuario_creador'],
+  });
+}
+
   async eliminar(id: number) {
     const equipo = await this.findOne(id);
     return this.equipoRepository.remove(equipo);
