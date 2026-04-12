@@ -32,15 +32,15 @@ export class EquiposController {
     return this.equiposService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.equiposService.findOne(+id);
-  }
-
   @Get('usuario/:id')
   findByUsuario(@Param('id') id: string) {
   return this.equiposService.findByUsuario(+id);
-  }
+}
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+  return this.equiposService.findOne(+id);
+}
 
   @Delete(':id')
   eliminar(@Param('id') id: string) {

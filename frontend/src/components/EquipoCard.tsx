@@ -19,7 +19,6 @@ function EquipoCard({ equipo, onClick }: EquipoCardProps) {
       <div className="card-body text-center py-2">
         <p className="mb-0 fw-bold" style={{ fontSize: '0.9rem' }}>
           {equipo.genero} {equipo.categoria} {equipo.letra}
-          Creado por: #{equipo.usuario_creador?.nombre}
         </p>
       </div>
     </div>

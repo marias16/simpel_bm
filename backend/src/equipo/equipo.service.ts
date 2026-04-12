@@ -40,6 +40,13 @@ export class EquiposService {
     return this.equipoRepository.find({ relations: ['club', 'usuario_creador'] });
   }
 
+  async findByUsuario(id_usuario: number) {
+    return this.equipoRepository.find({
+    where: { usuario_creador: { id_usuario } },
+    relations: ['club', 'usuario_creador'],
+  });
+}
+
   async findOne(id: number) {
     const equipo = await this.equipoRepository.findOne({
       where: { id_equipo: id },
@@ -49,12 +56,7 @@ export class EquiposService {
     return equipo;
   }
 
-  async findByUsuario(id_usuario: number) {
-  return this.equipoRepository.find({
-    where: { usuario_creador: { id_usuario } },
-    relations: ['club', 'usuario_creador'],
-  });
-}
+
 
   async eliminar(id: number) {
     const equipo = await this.findOne(id);
