@@ -50,11 +50,17 @@ export class SesionesService {
     return sesion;
   }
 
-  async findByUsuario(id_usuario: number) {
+async findByUsuario(id_usuario: number) {
   return this.sesionRepository.find({
     where: { usuario_creador: { id_usuario } },
-    relations: ['usuario_creador'],
+    relations: ['usuario_creador', 'sesiones_agendadas', 'sesion_ejercicio', 'sesion_ejercicio.ejercicio'],
   });
+}
+
+async toggleFavorita(id: number) {
+  const sesion = await this.findOne(id);
+  sesion.favorita = !sesion.favorita;
+  return this.sesionRepository.save(sesion);
 }
 
   async eliminar(id: number) {

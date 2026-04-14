@@ -11,6 +11,10 @@ import Ejercicios from './pages/Ejercicios';
 import DetalleEjercicio from './pages/DetalleEjercicio';
 import CrearEjercicio from './pages/CrearEjercicios';
 import EditarEjercicio from './pages/EditarEjercicio';
+import Sesiones from './pages/Sesiones';
+import CrearSesion from './pages/CrearSesion';
+import DetalleSesion from './pages/DetalleSesion';
+
 
 function AppRoutes() {
   const { token } = useAuth();
@@ -28,7 +32,10 @@ function AppRoutes() {
       <Route path="/ejercicios/crear" element={token ? <CrearEjercicio /> : <Navigate to="/login" />} />
       <Route path="/ejercicios/:id" element={token ? <DetalleEjercicio /> : <Navigate to="/login" />} />
       <Route path="/ejercicios" element={token ? <Ejercicios /> : <Navigate to="/login" />} />
-  
+      <Route path="/sesiones/crear" element={token ? <CrearSesion /> : <Navigate to="/login" />} />
+      <Route path="/sesiones/:id" element={token ? <DetalleSesion /> : <Navigate to="/login" />} />
+      <Route path="/sesiones" element={token ? <Sesiones /> : <Navigate to="/login" />} />
+
       
 
     </Routes>

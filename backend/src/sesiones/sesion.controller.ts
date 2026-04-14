@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Delete, Body, Param } from '@nestjs/common';
+import { Controller, Post, Get, Patch, Delete, Body, Param } from '@nestjs/common';
 import { SesionesService } from './sesion.service';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
@@ -34,15 +34,21 @@ export class SesionesController {
     return this.sesionesService.findAll();
   }
 
+  @Get('usuario/:id')
+  findByUsuario(@Param('id') id: string) {
+  return this.sesionesService.findByUsuario(+id);
+  }
+
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.sesionesService.findOne(+id);
   }
 
-    @Get('usuario/:id')
-    findByUsuario(@Param('id') id: string) {
-    return this.sesionesService.findByUsuario(+id);
-    }
+  @Patch(':id/favorita')
+  toggleFavorita(@Param('id') id: string) {
+    return this.sesionesService.toggleFavorita(+id);
+}
 
   @Delete(':id')
   eliminar(@Param('id') id: string) {

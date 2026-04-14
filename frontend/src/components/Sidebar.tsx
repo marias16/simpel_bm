@@ -19,9 +19,9 @@ function Sidebar() {
   return (
     <div
       className="d-flex flex-column align-items-center bg-white border-end py-3"
-      style={{ width: '90px', minHeight: '100vh' }}
+      style={{ width: '8%', height: '100vh', position: 'fixed', top: 0, left: 0, overflowY: 'auto' }}
     >
-      <span className="fw-bold mb-4" style={{ fontSize: '0.7rem' }}>Menú</span>
+      <span className="fw-bold mb-4" style={{ fontSize: '1rem' }}>Menú</span>
 
       <nav className="flex-grow-1 d-flex flex-column align-items-center gap-4 w-100">
         {menuItems.map((item) => (
@@ -37,7 +37,7 @@ function Sidebar() {
             }}
             onClick={() => navigate(item.path)}
           >
-            <span style={{ fontSize: '1.4rem', marginBottom: '2px' }}>{item.icon}</span>
+            <span style={{ fontSize: '2rem', marginBottom: '2px' }}>{item.icon}</span>
             {item.label}
           </div>
         ))}

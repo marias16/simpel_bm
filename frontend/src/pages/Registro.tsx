@@ -45,7 +45,7 @@ function Registro() {
           </h1>
         </div>
         <div className="w-50 d-flex justify-content-center align-items-center">
-          <div className="card p-4 rounded-0" style={{ width: '350px' }}>
+          <div className="card p-4 rounded-0" style={{ width: '50%' }}>
             <h4 className="mb-4">Regístrate</h4>
             {error && <div className="alert alert-danger">{error}</div>}
             {exito && <div className="alert alert-success">Registro exitoso. Redirigiendo...</div>}

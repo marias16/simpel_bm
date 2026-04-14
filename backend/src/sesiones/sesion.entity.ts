@@ -26,11 +26,12 @@ export class Sesion {
     @Column()
     prueba: boolean;
 
-    @OneToMany(() => SesionEjercicio, (sesion_ejercicio) => sesion_ejercicio.sesion)
+
+    @OneToMany(() => SesionEjercicio, (se) => se.sesion)
     sesion_ejercicio: SesionEjercicio[];
 
-    @OneToMany(() => EquipoSesion, (equipo_sesion) => equipo_sesion.sesion)
-    equipo_sesion: EquipoSesion[];
+    @OneToMany(() => EquipoSesion, (es) => es.sesion)
+    sesiones_agendadas: EquipoSesion[];
 
     @ManyToOne(() => Usuario)
     @JoinColumn({ name: 'id_usuario'})
