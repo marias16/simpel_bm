@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Delete, Body, Param } from '@nestjs/common';
+import { Controller, Post, Get, Delete, Patch, Body, Param } from '@nestjs/common';
 import { EquiposService } from './equipo.service';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
@@ -41,6 +41,11 @@ export class EquiposController {
   findOne(@Param('id') id: string) {
   return this.equiposService.findOne(+id);
 }
+
+  @Patch(':id')
+  actualizar(@Param('id') id: string, @Body() body: any) {
+    return this.equiposService.actualizar(+id, body);
+  }
 
   @Delete(':id')
   eliminar(@Param('id') id: string) {

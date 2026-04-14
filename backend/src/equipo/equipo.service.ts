@@ -56,6 +56,21 @@ export class EquiposService {
     return equipo;
   }
 
+  async actualizar(id: number, data: any) {
+  const equipo = await this.findOne(id);
+
+  if (data.categoria) equipo.categoria = data.categoria;
+  if (data.letra) equipo.letra = data.letra;
+  if (data.genero) equipo.genero = data.genero;
+  if (data.color) equipo.color = data.color;
+
+  if (data.id_club) {
+    const club = await this.clubRepository.findOne({ where: { id_club: data.id_club } });
+    if (club) equipo.club = club;
+  }
+
+  return this.equipoRepository.save(equipo);
+}
 
 
   async eliminar(id: number) {

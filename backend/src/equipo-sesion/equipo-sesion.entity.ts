@@ -20,7 +20,7 @@ export class EquipoSesion {
     @JoinColumn({ name: 'id_sesion'})
     sesion: Sesion;
 
-    @ManyToOne(() => Equipo)
-    @JoinColumn({ name: 'id_equipo'})
+    @ManyToOne(() => Equipo, { onDelete: 'CASCADE' })
+    @JoinColumn({ name: 'id_equipo' })
     equipo: Equipo;
 }

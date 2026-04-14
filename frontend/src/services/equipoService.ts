@@ -12,4 +12,5 @@ export const crearEquipo = (data: {
 export const getEquipos = () => api.get('/equipos');
 export const getEquipo = (id: number) => api.get(`/equipos/${id}`);
 export const getEquiposByUsuario = (id_usuario: number) => api.get(`/equipos/usuario/${id_usuario}`);
+export const actualizarEquipo = (id: number, data: any) => api.patch(`/equipos/${id}`, data);
 export const eliminarEquipo = (id: number) => api.delete(`/equipos/${id}`);

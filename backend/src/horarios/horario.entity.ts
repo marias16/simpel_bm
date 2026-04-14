@@ -15,8 +15,8 @@ export class Horario {
     @Column()
     hora_fin: string;
 
-    @ManyToOne(() => Equipo)
-    @JoinColumn({ name: 'id_equipo'})
+    @ManyToOne(() => Equipo, { onDelete: 'CASCADE' })
+    @JoinColumn({ name: 'id_equipo' })
     equipo: Equipo;
 
 }
