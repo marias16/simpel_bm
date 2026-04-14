@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Delete, Body, Param } from '@nestjs/common';
+import { Controller, Post, Get, Patch, Delete, Body, Param } from '@nestjs/common';
 import { EjerciciosService } from './ejercicio.service';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
@@ -33,6 +33,11 @@ export class EjercicioController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.ejercicioService.findOne(+id);
+  }
+
+  @Patch(':id')
+  actualizar(@Param('id') id: string, @Body() body: any) {
+    return this.ejercicioService.actualizar(+id, body);
   }
 
   @Delete(':id')

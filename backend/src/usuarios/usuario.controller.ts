@@ -26,6 +26,11 @@ export class UsuarioController {
     return this.usuariosService.cambiarPassword(+id, body.passwordActual, body.passwordNueva);
   }
 
+  @Patch(':id/rol')
+  cambiarRol(@Param('id') id: string, @Body() body: { rol: string }) {
+    return this.usuariosService.cambiarRol(+id, body.rol);
+  }
+
   @Delete(':id')
   eliminar(@Param('id') id: string) {
     return this.usuariosService.eliminar(+id);

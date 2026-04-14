@@ -31,6 +31,12 @@ export class UsuariosService {
     return this.usuarioRepository.save(usuario);
   }
 
+  async cambiarRol(id: number, rol: string) {
+    const usuario = await this.findOne(id);
+    usuario.rol = rol;
+    return this.usuarioRepository.save(usuario);
+  }
+
   async eliminar(id: number) {
     const usuario = await this.findOne(id);
     return this.usuarioRepository.remove(usuario);

@@ -7,8 +7,10 @@ import Equipos from './pages/Equipos';
 import CrearEquipo from './pages/CrearEquipo';
 import EditarEquipo from './pages/EditarEquipo';
 import DetalleEquipo from './pages/DetalleEquipo';
-
-
+import Ejercicios from './pages/Ejercicios';
+import DetalleEjercicio from './pages/DetalleEjercicio';
+import CrearEjercicio from './pages/CrearEjercicios';
+import EditarEjercicio from './pages/EditarEjercicio';
 
 function AppRoutes() {
   const { token } = useAuth();
@@ -22,6 +24,11 @@ function AppRoutes() {
       <Route path="/equipos/editar/:id" element={token ? <EditarEquipo /> : <Navigate to="/login" />} />
       <Route path="/equipos/:id" element={token ? <DetalleEquipo /> : <Navigate to="/login" />} />
       <Route path="/equipos" element={token ? <Equipos /> : <Navigate to="/login" />} />
+      <Route path="/ejercicios/editar/:id" element={token ? <EditarEjercicio /> : <Navigate to="/login" />} />
+      <Route path="/ejercicios/crear" element={token ? <CrearEjercicio /> : <Navigate to="/login" />} />
+      <Route path="/ejercicios/:id" element={token ? <DetalleEjercicio /> : <Navigate to="/login" />} />
+      <Route path="/ejercicios" element={token ? <Ejercicios /> : <Navigate to="/login" />} />
+  
       
 
     </Routes>

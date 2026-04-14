@@ -47,6 +47,23 @@ export class EjerciciosService {
     return ejercicio;
   }
 
+  async actualizar(id: number, data: any) {
+    const ejercicio = await this.findOne(id);
+
+    if (data.nombre) ejercicio.nombre = data.nombre;
+    if (data.descripcion) ejercicio.descripcion = data.descripcion;
+    if (data.imagen !== undefined) ejercicio.imagen = data.imagen;
+
+    if (data.ids_categorias) {
+      const categorias = await this.categoriaRepository.find({
+        where: { id_categoria: In(data.ids_categorias) },
+      });
+      ejercicio.categorias = categorias;
+    }
+
+    return this.ejercicioRepository.save(ejercicio);
+  }
+
   async eliminar(id: number) {
     const ejercicio = await this.findOne(id);
     return this.ejercicioRepository.remove(ejercicio);
