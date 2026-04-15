@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { getEquipo, eliminarEquipo } from '../services/equipoService';
+import { getEquipoSesionesByEquipo } from '../services/equipoSesionService';
 import { getHorariosByEquipo, crearHorario, eliminarHorario } from '../services/horarioService';
 
 function DetalleEquipo() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [equipo, setEquipo] = useState<any>(null);
+  const [equipoSesiones, setEquipoSesiones] = useState<any[]>([]);
   const [horarios, setHorarios] = useState<any[]>([]);
   const [mostrarOpciones, setMostrarOpciones] = useState(false);
 
@@ -16,6 +18,8 @@ function DetalleEquipo() {
     setEquipo(resEquipo.data);
     const resHorarios = await getHorariosByEquipo(+id!);
     setHorarios(resHorarios.data);
+    const resEquipoSesion = await getEquipoSesionesByEquipo(+id!);
+    setEquipoSesiones(resEquipoSesion.data);
   };
 
   useEffect(() => {
@@ -35,6 +39,19 @@ function DetalleEquipo() {
   };
 
   if (!equipo) return <Layout><p>Cargando...</p></Layout>;
+   
+  //formatear fecha 
+    const formatearFecha = (fecha: string) => {
+    const date = new Date(fecha);
+    const texto = date.toLocaleDateString('es-ES', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+    return texto.charAt(0).toUpperCase() + texto.slice(1);
+  };
+
 
   return (
     <Layout>
@@ -82,6 +99,18 @@ function DetalleEquipo() {
             <p className="fw-bold mb-0">{equipo.club?.nombre}</p>
           </div>
           <div className="mb-3">
+            <small className="text-muted">Color del equipo</small>
+            <div
+                style={{
+                  width: '200px',
+                  height: '150px',
+                  backgroundColor: equipo.color,
+                  border: '1px solid #ccc',
+                  marginBottom: '8px',
+                }}
+              />
+            </div>
+          <div className="mb-3">
             <small className="text-muted">Categoría</small>
             <p className="fw-bold mb-0">{equipo.categoria}</p>
           </div>
@@ -109,18 +138,33 @@ function DetalleEquipo() {
           </div>
         </div>
 
-        <div className="w-50 d-flex justify-content-center pt-2">
+        <div className="w-50 justify-content-center pt-2">
+          <label className="form-label fw-bold">Sesiones asignadas</label>
           <div>
-            <div
-              style={{
-                width: '200px',
-                height: '150px',
-                backgroundColor: equipo.color,
-                border: '1px solid #ccc',
-                marginBottom: '8px',
-              }}
-            />
-            <span className="fw-bold">Color del equipo</span>
+            {equipoSesiones.length === 0 ? (
+              <p className="text-muted">Sin sesiones programadas</p>
+            ) : (
+              equipoSesiones.map((es: any) => (
+                <div key={es.id_equipo_sesion} className="mb-2">
+                  <p className="fw-bold mb-1">{es.sesion?.nombre}</p>
+                  <div
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: '1fr 0.5fr 0.5fr 1fr',
+                      gap: '0px',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <span>{formatearFecha(es.fecha)}</span>
+                    <span>{es.hora_inicio}h</span>
+                    <span>{es.hora_fin}h</span>
+                    <Link to={`/sesiones/${es.sesion?.id_sesion}`} style={{ color: 'inherit' }}>
+                      Ver sesión→
+                    </Link>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>

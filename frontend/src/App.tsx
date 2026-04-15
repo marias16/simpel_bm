@@ -15,6 +15,7 @@ import Sesiones from './pages/Sesiones';
 import CrearSesion from './pages/CrearSesion';
 import DetalleSesion from './pages/DetalleSesion';
 import AgendarSesion from './pages/AgendarSesion';
+import Calendario from './pages/Calendario';
 
 
 function AppRoutes() {
@@ -37,6 +38,7 @@ function AppRoutes() {
       <Route path="/sesiones/:id" element={token ? <DetalleSesion /> : <Navigate to="/login" />} />
       <Route path="/sesiones" element={token ? <Sesiones /> : <Navigate to="/login" />} />
       <Route path="/sesiones/:id/agendar" element={token ? <AgendarSesion /> : <Navigate to="/login" />} />
+      <Route path="/calendario" element={token ? <Calendario /> : <Navigate to="/login" />} />
 
       
 
