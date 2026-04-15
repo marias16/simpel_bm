@@ -19,9 +19,9 @@ function BarraAcciones({
       style={{
         position: 'fixed',
         bottom: 0,
-        left: '90px',
+        left: '8%',
         right: 0,
-        height: '60px',
+        height: '6%',
         backgroundColor: 'white',
         zIndex: 100,
       }}

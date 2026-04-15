@@ -14,6 +14,7 @@ import EditarEjercicio from './pages/EditarEjercicio';
 import Sesiones from './pages/Sesiones';
 import CrearSesion from './pages/CrearSesion';
 import DetalleSesion from './pages/DetalleSesion';
+import AgendarSesion from './pages/AgendarSesion';
 
 
 function AppRoutes() {
@@ -35,6 +36,7 @@ function AppRoutes() {
       <Route path="/sesiones/crear" element={token ? <CrearSesion /> : <Navigate to="/login" />} />
       <Route path="/sesiones/:id" element={token ? <DetalleSesion /> : <Navigate to="/login" />} />
       <Route path="/sesiones" element={token ? <Sesiones /> : <Navigate to="/login" />} />
+      <Route path="/sesiones/:id/agendar" element={token ? <AgendarSesion /> : <Navigate to="/login" />} />
 
       
 
