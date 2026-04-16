@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import { getEquipo, eliminarEquipo } from '../services/equipoService';
 import { getEquipoSesionesByEquipo } from '../services/equipoSesionService';
 import { getHorariosByEquipo, crearHorario, eliminarHorario } from '../services/horarioService';
+import Card from '../components/Card';
 
 function DetalleEquipo() {
   const { id } = useParams();
@@ -40,6 +41,12 @@ function DetalleEquipo() {
 
   if (!equipo) return <Layout><p>Cargando...</p></Layout>;
    
+  //filtrar sesiones
+
+  const sesionesFuturas = equipoSesiones
+  .filter((es: any) => new Date(es.fecha) >= new Date(new Date().toDateString()))
+  .sort((a: any, b: any) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
+
   //formatear fecha 
     const formatearFecha = (fecha: string) => {
     const date = new Date(fecha);
@@ -92,24 +99,27 @@ function DetalleEquipo() {
         </div>
       </div>
 
-      <div className="d-flex">
-        <div className="w-50">
+      <div 
+        style={{
+          
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr 1fr',
+            gap: '10px',
+            alignItems: 'center',
+      
+        }}>
+        <div>
+          <Card
+            titulo="Color del equipo"
+            color={equipo.color}
+          />
+        </div>
+
+        <div>
           <div className="mb-3">
             <small className="text-muted">Club</small>
             <p className="fw-bold mb-0">{equipo.club?.nombre}</p>
           </div>
-          <div className="mb-3">
-            <small className="text-muted">Color del equipo</small>
-            <div
-                style={{
-                  width: '200px',
-                  height: '150px',
-                  backgroundColor: equipo.color,
-                  border: '1px solid #ccc',
-                  marginBottom: '8px',
-                }}
-              />
-            </div>
           <div className="mb-3">
             <small className="text-muted">Categoría</small>
             <p className="fw-bold mb-0">{equipo.categoria}</p>
@@ -138,26 +148,28 @@ function DetalleEquipo() {
           </div>
         </div>
 
-        <div className="w-50 justify-content-center pt-2">
+        <div className="justify-content-center pt-2">
           <label className="form-label fw-bold">Sesiones asignadas</label>
           <div>
             {equipoSesiones.length === 0 ? (
               <p className="text-muted">Sin sesiones programadas</p>
             ) : (
-              equipoSesiones.map((es: any) => (
-                <div key={es.id_equipo_sesion} className="mb-2">
+              sesionesFuturas.map((es: any) => (
+                <div key={es.id_equipo_sesion} className="mb-2" style={{
+                  border: '0.5px solid rgba(0, 0, 0, 0.125)',
+                  padding: '3% 8%'
+                  }}>
                   <p className="fw-bold mb-1">{es.sesion?.nombre}</p>
                   <div
                     style={{
                       display: 'grid',
-                      gridTemplateColumns: '1fr 0.5fr 0.5fr 1fr',
+                      gridTemplateColumns: '1fr 0.5fr 0.5fr',
                       gap: '0px',
                       alignItems: 'center',
                     }}
                   >
                     <span>{formatearFecha(es.fecha)}</span>
                     <span>{es.hora_inicio}h</span>
-                    <span>{es.hora_fin}h</span>
                     <Link to={`/sesiones/${es.sesion?.id_sesion}`} style={{ color: 'inherit' }}>
                       Ver sesión→
                     </Link>
