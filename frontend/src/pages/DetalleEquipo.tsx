@@ -103,19 +103,23 @@ function DetalleEquipo() {
         style={{
           
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr 1fr',
+            gridAutoFlow: 'row',
             gap: '10px',
             alignItems: 'center',
       
         }}>
-        <div>
-          <Card
-            titulo="Color del equipo"
-            color={equipo.color}
-          />
-        </div>
 
         <div>
+          <div className="mb-3">
+            <small className="text-muted">Color del equipo</small>
+            <div
+              style={{
+                width: '3rem',
+                height: '3rem',
+                backgroundColor: equipo.color,
+              }}
+            />
+          </div>
           <div className="mb-3">
             <small className="text-muted">Club</small>
             <p className="fw-bold mb-0">{equipo.club?.nombre}</p>
@@ -133,7 +137,7 @@ function DetalleEquipo() {
             <p className="fw-bold mb-0">{equipo.letra}</p>
           </div>
           <div className="mb-3">
-            <small className="text-muted">Horario</small>
+            <small className="text-muted">Horarios</small>
             {horarios.length === 0 ? (
               <p className="text-muted">Sin horarios</p>
             ) : (
@@ -149,7 +153,7 @@ function DetalleEquipo() {
         </div>
 
         <div className="justify-content-center pt-2">
-          <label className="form-label fw-bold">Sesiones asignadas</label>
+          <label className="form-label fw-bold">Sesiones programadas próximamente</label>
           <div>
             {equipoSesiones.length === 0 ? (
               <p className="text-muted">Sin sesiones programadas</p>
@@ -157,7 +161,8 @@ function DetalleEquipo() {
               sesionesFuturas.map((es: any) => (
                 <div key={es.id_equipo_sesion} className="mb-2" style={{
                   border: '0.5px solid rgba(0, 0, 0, 0.125)',
-                  padding: '3% 8%'
+                  padding: '1% 1%',
+                  width: '50%'
                   }}>
                   <p className="fw-bold mb-1">{es.sesion?.nombre}</p>
                   <div
@@ -170,7 +175,7 @@ function DetalleEquipo() {
                   >
                     <span>{formatearFecha(es.fecha)}</span>
                     <span>{es.hora_inicio}h</span>
-                    <Link to={`/sesiones/${es.sesion?.id_sesion}`} style={{ color: 'inherit' }}>
+                    <Link to={`/agendada/${es.id_equipo_sesion}`} style={{ color: 'inherit' }}>
                       Ver sesión→
                     </Link>
                   </div>

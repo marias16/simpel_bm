@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Delete, Body, Param } from '@nestjs/common';
+import { Controller, Post, Get, Patch, Delete, Body, Param } from '@nestjs/common';
 import { EquipoSesionService } from './equipo-sesion.service';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
@@ -25,6 +25,11 @@ export class EquipoSesionController {
     );
   }
 
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.equipoSesionService.findOne(+id);
+  }
+
   @Get()
   findAll() {
     return this.equipoSesionService.findAll();
@@ -33,6 +38,11 @@ export class EquipoSesionController {
   @Get('equipo/:id')
   findByEquipo(@Param('id') id: string) {
     return this.equipoSesionService.findByEquipo(+id);
+  }
+
+  @Patch(':id')
+  actualizar(@Param('id') id: string, @Body() body: any) {
+    return this.equipoSesionService.actualizar(+id, body);
   }
 
   @Delete(':id')

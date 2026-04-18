@@ -48,10 +48,8 @@ function Calendario() {
   }, [usuario]);
 
   const handleEventClick = (info: any) => {
-    const id_sesion = info.event.extendedProps.id_sesion;
-    if (id_sesion) {
-      navigate(`/sesiones/${id_sesion}`);
-    }
+    const id_agendada = info.event.id;
+    navigate(`/agendada/${id_agendada}`);
   };
 
   return (

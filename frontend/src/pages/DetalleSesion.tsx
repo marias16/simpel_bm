@@ -40,7 +40,7 @@ function DetalleSesion() {
             <span className="text-muted">{sesion.categoria_sesion} · {sesion.prueba ? 'Prueba' : 'Entrenamiento'}</span>
           </div>
           <div className="d-flex align-items-center gap-3">
-            <span style={{ fontSize: '2rem' }}>{sesion.favorita ? '♥' : '♡'}</span>
+            <span style={{ fontSize: '1rem' }}>{sesion.favorita ? 'Quitar de favoritas ♥' : ' Marcar como favorita ♡'}</span>
             <div style={{ position: 'relative' }}>
               <button
                 className="btn btn-outline-dark rounded-0"

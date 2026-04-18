@@ -86,7 +86,7 @@ function Dashboard() {
                     }
                     badge={`${formatearFechaCorta(es.fecha)}, ${es.hora_inicio}h`}
                     borderColor={es.equipo?.color}
-                    onClick={() => navigate(`/sesiones/${es.sesion?.id_sesion}`)}
+                    onClick={() => navigate(`/agendada/${es.id_equipo_sesion}`)}
                   />
                 ))}
               </div>

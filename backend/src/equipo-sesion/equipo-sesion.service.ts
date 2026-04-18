@@ -33,6 +33,15 @@ export class EquipoSesionService {
     return this.equipoSesionRepository.save(registro);
   }
 
+  async findOne(id: number) {
+    const registro = await this.equipoSesionRepository.findOne({
+      where: { id_equipo_sesion: id },
+      relations: ['sesion', 'equipo', 'equipo.club'],
+    });
+    if (!registro) throw new NotFoundException('Sesión agendada no encontrada');
+    return registro;
+  }
+
   async findByEquipo(id_equipo: number) {
     return this.equipoSesionRepository.find({
       where: { equipo: { id_equipo } },
@@ -44,6 +53,20 @@ export class EquipoSesionService {
     return this.equipoSesionRepository.find({
       relations: ['sesion', 'sesion.sesion_ejercicio', 'sesion.sesion_ejercicio.ejercicio', 'equipo'],
     });
+  }
+
+  async actualizar(id: number, data: any) {
+    const registro = await this.findOne(id);
+    if (data.fecha) registro.fecha = data.fecha;
+    if (data.hora_inicio) registro.hora_inicio = data.hora_inicio;
+    if (data.hora_fin) registro.hora_fin = data.hora_fin;
+
+    if (data.id_equipo) {
+      const equipo = await this.equipoRepository.findOne({ where: { id_equipo: data.id_equipo } });
+      if (equipo) registro.equipo = equipo;
+  }
+
+  return this.equipoSesionRepository.save(registro);
   }
 
   async eliminar(id: number) {
