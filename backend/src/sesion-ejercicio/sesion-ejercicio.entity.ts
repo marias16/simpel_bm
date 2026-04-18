@@ -14,7 +14,7 @@ export class SesionEjercicio {
     @JoinColumn({ name: 'id_ejercicio'})
     ejercicio: Ejercicio;
 
-    @ManyToOne(() => Sesion)
-    @JoinColumn({ name: 'id_sesion'})
+    @ManyToOne(() => Sesion, { onDelete: 'CASCADE' })
+    @JoinColumn({ name: 'id_sesion' })
     sesion: Sesion;
 }

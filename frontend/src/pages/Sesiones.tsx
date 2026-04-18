@@ -10,6 +10,7 @@ function Sesiones() {
   const [sesiones, setSesiones] = useState<any[]>([]);
   const [busqueda, setBusqueda] = useState('');
   const [filtro, setFiltro] = useState('todas');
+  const [categoriaSesion, setCategoriaSesion] = useState('')
   const { usuario } = useAuth();
   const navigate = useNavigate();
 
@@ -23,13 +24,13 @@ function Sesiones() {
 
 const sesionesFiltradas = sesiones.filter((s) => {
   const coincideBusqueda = s.nombre.toLowerCase().includes(busqueda.toLowerCase());
+  const coincideCategoria = categoriaSesion ? s.categoria_sesion == categoriaSesion : true;
 
-
-  if (filtro === 'prueba') return coincideBusqueda && s.prueba;
-  if (filtro === 'favoritas') return coincideBusqueda && s.favorita;
-  if (filtro === 'asignadas') return coincideBusqueda && s.sesiones_agendadas?.length > 0;
-  if (filtro === 'no_asignadas') return coincideBusqueda && (!s.sesiones_agendadas || s.sesiones_agendadas.length === 0);
-  return coincideBusqueda;
+  if (filtro === 'prueba') return coincideBusqueda && coincideCategoria && s.prueba;
+  if (filtro === 'favoritas') return coincideBusqueda && coincideCategoria && s.favorita;
+  if (filtro === 'asignadas') return coincideBusqueda && coincideCategoria && s.sesiones_agendadas?.length > 0;
+  if (filtro === 'no_asignadas') return coincideBusqueda && coincideCategoria && (!s.sesiones_agendadas || s.sesiones_agendadas.length === 0);
+  return coincideBusqueda && coincideCategoria;
 });
 
 const tabs = [
@@ -52,15 +53,29 @@ const tabs = [
         </button>
       </div>
 
-      <div className="d-flex gap-3 mb-3">
+      <div className="d-flex gap-3 mb-3 w-50">
         <input
           type="text"
           className="form-control rounded-0"
           placeholder="Busca por título..."
           value={busqueda}
           onChange={(e) => setBusqueda(e.target.value)}
-          style={{ maxWidth: '300px' }}
+          style={{width:"70%"}}
         />
+        <select
+          className="form-select rounded-0"
+          value={categoriaSesion}
+          onChange={(e) => setCategoriaSesion(e.target.value)}
+          style={{width:"30%"}}
+          required
+          >
+          <option value="">Selecciona una categoría</option>
+          <option value="Ataque">Ataque</option>
+          <option value="Defensa">Defensa</option>
+          <option value="Contrataque">Contrataque</option>
+          <option value="Mixto">Mixto</option>
+          <option value="Otra">Otra</option>
+        </select>
       </div>
 
       <div className="d-flex gap-2 mb-4">

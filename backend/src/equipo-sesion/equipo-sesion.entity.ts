@@ -16,8 +16,8 @@ export class EquipoSesion {
     @Column()
     hora_fin: string;
 
-    @ManyToOne(() => Sesion)
-    @JoinColumn({ name: 'id_sesion'})
+    @ManyToOne(() => Sesion, { onDelete: 'CASCADE' })
+    @JoinColumn({ name: 'id_sesion' })
     sesion: Sesion;
 
     @ManyToOne(() => Equipo, { onDelete: 'CASCADE' })

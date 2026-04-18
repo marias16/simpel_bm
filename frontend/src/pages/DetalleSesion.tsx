@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
 import Layout from '../components/Layout';
 import BarraAcciones from '../components/BarraAcciones';
-import { getSesion } from '../services/sesionService';
+import { getSesion, eliminarSesion } from '../services/sesionService';
 import { getEjerciciosBySesion } from '../services/sesionEjercicioService';
 
 function DetalleSesion() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { usuario } = useAuth();
   const [sesion, setSesion] = useState<any>(null);
   const [ejercicios, setEjercicios] = useState<any[]>([]);
+  const [mostrarOpciones, setMostrarOpciones] = useState(false);
+
 
   useEffect(() => {
     const cargar = async () => {
@@ -24,6 +24,12 @@ function DetalleSesion() {
   }, [id]);
 
   if (!sesion) return <Layout><p>Cargando...</p></Layout>;
+  const handleEliminar = async () => {
+    if (window.confirm('¿Seguro que quieres eliminar esta sesión? Se eliminarán también sus sesiones agendadas.')) {
+      await eliminarSesion(+id!);
+      navigate('/sesiones');
+    }
+  };
 
   return (
     <Layout>
@@ -33,7 +39,42 @@ function DetalleSesion() {
             <h2 className="fw-bold">{sesion.nombre}</h2>
             <span className="text-muted">{sesion.categoria_sesion} · {sesion.prueba ? 'Prueba' : 'Entrenamiento'}</span>
           </div>
-          <span style={{ fontSize: '2rem' }}>{sesion.favorita ? '♥' : '♡'}</span>
+          <div className="d-flex align-items-center gap-3">
+            <span style={{ fontSize: '2rem' }}>{sesion.favorita ? '♥' : '♡'}</span>
+            <div style={{ position: 'relative' }}>
+              <button
+                className="btn btn-outline-dark rounded-0"
+                onClick={() => setMostrarOpciones(!mostrarOpciones)}
+              >
+                Opciones
+              </button>
+              {mostrarOpciones && (
+                <div
+                  className="border bg-white"
+                  style={{ position: 'absolute', right: 0, top: '100%', zIndex: 10, minWidth: '150px' }}
+                >
+                  <div
+                    className="p-2 d-flex align-items-center gap-2"
+                    style={{ cursor: 'pointer' }}
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#f0f0f0')}
+                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'white')}
+                    onClick={() => { setMostrarOpciones(false); navigate(`/sesiones/editar/${id}`); }}
+                  >
+                    ✏️ Editar
+                  </div>
+                  <div
+                    className="p-2 d-flex align-items-center gap-2 text-danger"
+                    style={{ cursor: 'pointer' }}
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#f0f0f0')}
+                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'white')}
+                    onClick={handleEliminar}
+                  >
+                    🗑️ Eliminar
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
 
         <div className="d-flex">

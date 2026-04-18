@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import Layout from '../components/Layout';
 import { getEquipoSesiones } from '../services/equipoSesionService';
 import { getEquiposByUsuario } from '../services/equipoService';
+import Card from '../components/Card';
 
 function Dashboard() {
   const { usuario } = useAuth();
@@ -37,6 +38,7 @@ function Dashboard() {
     });
   };
 
+
   const acciones = [
     {
       titulo: 'Agenda una sesión.',
@@ -58,55 +60,50 @@ function Dashboard() {
   return (
     <Layout>
       <div className="mb-5">
-        <h2 className="fw-bold">Hola, {usuario?.email?.split('@')[0]}</h2>
+        <h2 className="fw-bold">Hola, {usuario?.nombre}</h2>
         <p className="text-muted">¿Qué quieres gestionar hoy?</p>
       </div>
 
-      <div className="mb-5">
+      <div className="mb-3">
         <h5 className="fw-bold mb-3">Sesiones agendadas</h5>
         {sesionesProximas.length === 0 ? (
           <p className="text-muted">No tienes sesiones próximas.</p>
         ) : (
           <div className="d-flex gap-3" style={{ overflowX: 'auto', paddingBottom: '8px' }}>
-            {sesionesProximas.map((es: any) => (
-              <div
-                key={es.id_equipo_sesion}
-                className="card rounded-0"
-                style={{
-                  minWidth: '180px',
-                  height: '200px',
-                  cursor: 'pointer',
-                  borderTop: `4px solid ${es.equipo?.color || '#6c63ff'}`,
-                }}
-                onClick={() => navigate(`/sesiones/${es.sesion?.id_sesion}`)}
-              >
-                <div className="card-body py-2">
-                  <p className="fw-bold mb-1" style={{ fontSize: '0.9rem' }}>{es.sesion?.nombre}</p>
-                  <small className="text-muted d-block">{es.equipo?.categoria} {es.equipo?.genero} {es.equipo?.letra}</small>
-                  <small className="text-muted">{formatearFechaCorta(es.fecha)} · {es.hora_inicio}h</small>
-                </div>
+            {sesionesProximas.length === 0 ? (
+              <p className="text-muted">No tienes sesiones próximas.</p>
+            ) : (
+              <div className="d-flex gap-3" style={{ overflowX: 'auto', paddingBottom: '8px' }}>
+                {sesionesProximas.map((es: any) => (
+                  <Card
+                    key={es.id_equipo_sesion}
+                    titulo={es.sesion?.nombre}
+                    subtitulo={`${es.equipo?.club?.nombre || ''} ${es.equipo?.categoria} ${es.equipo?.genero} ${es.equipo?.letra}`}
+                    imagenes={es.sesion?.sesion_ejercicio
+                      ?.sort((a: any, b: any) => a.orden - b.orden)
+                      .slice(0, 4)
+                      .map((se: any) => se.ejercicio?.imagen)
+                    }
+                    badge={`${formatearFechaCorta(es.fecha)}, ${es.hora_inicio}h`}
+                    borderColor={es.equipo?.color}
+                    onClick={() => navigate(`/sesiones/${es.sesion?.id_sesion}`)}
+                  />
+                ))}
               </div>
-            ))}
+            )}
           </div>
         )}
-        <div className="text-end mt-2">
-          <span
-            style={{ cursor: 'pointer', textDecoration: 'underline', fontSize: '0.9rem' }}
-            onClick={() => navigate('/calendario')}
-          >
-            Ver calendario →
-          </span>
-        </div>
+        
       </div>
 
       <div className="mb-5">
         <h5 className="fw-bold mb-3">Organiza</h5>
-        <div className="d-flex gap-3">
+        <div className="d-flex gap-3 justify-content-between">
           {acciones.map((accion) => (
             <div
               key={accion.titulo}
               className="card rounded-0 text-center p-4"
-              style={{ width: '200px', cursor: 'pointer' }}
+              style={{ width: '30%', cursor: 'pointer' }}
               onClick={() => navigate(accion.ruta)}
             >
               <span style={{ fontSize: '2rem', marginBottom: '8px' }}>{accion.icono}</span>
@@ -120,7 +117,7 @@ function Dashboard() {
         <h5 className="fw-bold mb-3">¿Necesitas ayuda?</h5>
         <div className="card rounded-0 p-4" style={{ backgroundColor: '#f8f8f8' }}>
           <h5 className="fw-bold mb-1">Organiza y entrena. Simpel.</h5>
-          <p className="text-muted mb-0">Asesoramiento personalizado al alcance de tu mano. Contáctanos.</p>
+          <p className="text-muted mb-0">Asesoramiento personalizado al alcance de tu mano. <a style={{textDecoration:"none", color:"black"}} href="mailto:m.suarez.her@gmail.com">Contáctanos</a>.</p>
         </div>
       </div>
     </Layout>

@@ -4,6 +4,7 @@ interface Usuario {
   id_usuario: number;
   email: string;
   rol: string;
+  nombre: string;
 }
 
 interface AuthContextType {
@@ -28,6 +29,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       id_usuario: payload.id_usuario,
       email: payload.email,
       rol: payload.rol,
+      nombre: payload.nombre,
     };
 
     setToken(nuevoToken);

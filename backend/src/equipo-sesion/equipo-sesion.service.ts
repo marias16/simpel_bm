@@ -42,7 +42,7 @@ export class EquipoSesionService {
 
   async findAll() {
     return this.equipoSesionRepository.find({
-      relations: ['sesion', 'equipo'],
+      relations: ['sesion', 'sesion.sesion_ejercicio', 'sesion.sesion_ejercicio.ejercicio', 'equipo'],
     });
   }
 
