@@ -78,7 +78,7 @@ function Dashboard() {
                   <Card
                     key={es.id_equipo_sesion}
                     titulo={es.sesion?.nombre}
-                    subtitulo={`${es.equipo?.club?.nombre || ''} ${es.equipo?.categoria} ${es.equipo?.genero} ${es.equipo?.letra}`}
+                    subtitulo={`${es.equipo?.club?.nombre} ${es.equipo?.categoria} ${es.equipo?.genero} ${es.equipo?.letra}`}
                     imagenes={es.sesion?.sesion_ejercicio
                       ?.sort((a: any, b: any) => a.orden - b.orden)
                       .slice(0, 4)

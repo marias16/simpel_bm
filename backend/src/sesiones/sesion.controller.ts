@@ -45,6 +45,11 @@ export class SesionesController {
     return this.sesionesService.findOne(+id);
   }
 
+  @Patch(':id')
+  actualizar(@Param('id') id: string, @Body() body: any) {
+  return this.sesionesService.actualizar(+id, body);
+  }
+
   @Patch(':id/favorita')
   toggleFavorita(@Param('id') id: string) {
     return this.sesionesService.toggleFavorita(+id);

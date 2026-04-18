@@ -13,6 +13,7 @@ import CrearEjercicio from './pages/CrearEjercicios';
 import EditarEjercicio from './pages/EditarEjercicio';
 import Sesiones from './pages/Sesiones';
 import CrearSesion from './pages/CrearSesion';
+import EditarSesion from './pages/EditarSesion';
 import DetalleSesion from './pages/DetalleSesion';
 import AgendarSesion from './pages/AgendarSesion';
 import Calendario from './pages/Calendario';
@@ -36,6 +37,7 @@ function AppRoutes() {
       <Route path="/ejercicios/:id" element={token ? <DetalleEjercicio /> : <Navigate to="/login" />} />
       <Route path="/ejercicios" element={token ? <Ejercicios /> : <Navigate to="/login" />} />
       <Route path="/sesiones/crear" element={token ? <CrearSesion /> : <Navigate to="/login" />} />
+      <Route path="/sesiones/editar/:id" element={token ? <EditarSesion /> : <Navigate to="/login" />} />
       <Route path="/sesiones/:id" element={token ? <DetalleSesion /> : <Navigate to="/login" />} />
       <Route path="/sesiones" element={token ? <Sesiones /> : <Navigate to="/login" />} />
       <Route path="/sesiones/:id/agendar" element={token ? <AgendarSesion /> : <Navigate to="/login" />} />

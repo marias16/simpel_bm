@@ -57,6 +57,19 @@ async findByUsuario(id_usuario: number) {
   });
 }
 
+
+
+async actualizar(id: number, data: any) {
+  const sesion = await this.findOne(id);
+  if (data.nombre) sesion.nombre = data.nombre;
+  if (data.descripcion !== undefined) sesion.descripcion = data.descripcion;
+  if (data.categoria_sesion) sesion.categoria_sesion = data.categoria_sesion;
+  if (data.comentarios !== undefined) sesion.comentarios = data.comentarios;
+  if (data.favorita !== undefined) sesion.favorita = data.favorita;
+  if (data.prueba !== undefined) sesion.prueba = data.prueba;
+  return this.sesionRepository.save(sesion);
+}
+
 async toggleFavorita(id: number) {
   const sesion = await this.findOne(id);
   sesion.favorita = !sesion.favorita;
