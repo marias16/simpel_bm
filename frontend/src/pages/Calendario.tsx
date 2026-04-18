@@ -69,6 +69,12 @@ function Calendario() {
         eventClick={handleEventClick}
         height="80vh"
         eventDisplay="block"
+
+        buttonText={{
+        today: 'Hoy',
+        month: 'Mes',
+        week: 'Semana',
+      }}
       />
     </Layout>
   );

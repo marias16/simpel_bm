@@ -5,7 +5,7 @@ function Layout({ children }: { children: React.ReactNode }) {
     <div className="d-flex">
       <div style={{ width: '10%', flexShrink: 0 }} />
       <Sidebar />
-      <div className="flex-grow-1 p-4" style={{ overflow: 'hidden' }}>
+      <div className="flex-grow-1 p-4 page-content" style={{ overflow: 'hidden' }}>
         {children}
       </div>
     </div>

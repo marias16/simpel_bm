@@ -14,6 +14,7 @@ body {
   background-color: #e9e9e9 !important;
 }
 
+/* arreglar calendario*/
 .fc {
   font-family: 'Inter', sans-serif;
 }
@@ -62,4 +63,43 @@ body {
 
 .fc td, .fc th {
   border-color: #e8e8e8 !important;
+}
+
+/*efectillos*/
+
+/* Hover en cards */
+.card {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  transform: translateY(-2px);
+}
+
+/* Hover en botones */
+.btn {
+  transition: all 0.2s;
+}
+
+/* Hover en items del sidebar */
+.sidebar-item {
+  transition: background-color 0.2s;
+}
+
+/* Transición suave entre páginas */
+.page-content {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+
+/* Inputs con focus lila */
+.form-control:focus, .form-select:focus {
+  border-color: #6c63ff !important;
+  box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.2) !important;
 }

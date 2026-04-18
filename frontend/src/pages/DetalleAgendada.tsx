@@ -224,7 +224,7 @@ function DetalleAgendada() {
       </div>
 
       <BarraAcciones
-        onCancelar={() => navigate('/calendario')}
+        onCancelar={() => navigate(-1)}
         textoCancelar="Atrás"
         textoConfirmar="Ver plantilla"
         tipoConfirmar="button"

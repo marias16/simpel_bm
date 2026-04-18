@@ -35,10 +35,10 @@ const sesionesFiltradas = sesiones.filter((s) => {
 
 const tabs = [
   { label: 'Todas', valor: 'todas' },
-  { label: 'Asignadas', valor: 'asignadas' },
+  { label: 'Agendadas', valor: 'asignadas' },
   { label: 'De prueba', valor: 'prueba' },
   { label: 'Favoritas', valor: 'favoritas' },
-  { label: 'No asignadas', valor: 'no_asignadas' },
+  { label: 'No agendadas', valor: 'no_asignadas' },
 ];
 
   return (

@@ -104,11 +104,13 @@ function CrearSesion() {
           tipoConfirmar="button"
           onConfirmar={() => {
             if (seleccionados.length > 0) {
+              setError('');
               setPaso(2);
             } else {
               setError('Selecciona al menos un ejercicio');
             }
           }}
+    
         />
         {error && <div className="alert alert-danger position-fixed" style={{ bottom: '70px', left: '100px' }}>{error}</div>}
       </Layout>

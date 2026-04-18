@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import BarraAcciones from '../components/BarraAcciones';
-import { getSesion, eliminarSesion } from '../services/sesionService';
+import { getSesion, toggleFavorita, eliminarSesion } from '../services/sesionService';
 import { getEjerciciosBySesion } from '../services/sesionEjercicioService';
 
 function DetalleSesion() {
@@ -11,17 +11,20 @@ function DetalleSesion() {
   const [sesion, setSesion] = useState<any>(null);
   const [ejercicios, setEjercicios] = useState<any[]>([]);
   const [mostrarOpciones, setMostrarOpciones] = useState(false);
-
+  const [favorita, setFavorita] = useState(false);
 
   useEffect(() => {
     const cargar = async () => {
       const resSesion = await getSesion(+id!);
       setSesion(resSesion.data);
+      setFavorita(resSesion.data.favorita);
       const resEj = await getEjerciciosBySesion(+id!);
       setEjercicios(resEj.data);
     };
     cargar();
   }, [id]);
+
+  
 
   if (!sesion) return <Layout><p>Cargando...</p></Layout>;
   const handleEliminar = async () => {
@@ -40,7 +43,15 @@ function DetalleSesion() {
             <span className="text-muted">{sesion.categoria_sesion} · {sesion.prueba ? 'Prueba' : 'Entrenamiento'}</span>
           </div>
           <div className="d-flex align-items-center gap-3">
-            <span style={{ fontSize: '1rem' }}>{sesion.favorita ? 'Quitar de favoritas ♥' : ' Marcar como favorita ♡'}</span>
+            <span
+              style={{ fontSize: '1rem', cursor: 'pointer' }}
+              onClick={async () => {
+                await toggleFavorita(+id!);
+                setFavorita(!favorita);
+              }}
+            >
+              {favorita ? 'Quitar de favoritas ♥' : 'Marcar como favorita ♡'}
+            </span>
             <div style={{ position: 'relative' }}>
               <button
                 className="btn btn-outline-dark rounded-0"
@@ -95,7 +106,7 @@ function DetalleSesion() {
               {ejercicios.map((se: any) => (
                 <div
                   key={se.id_sesion_ejercicio}
-                  className="d-flex gap-3 border p-2"
+                  className="d-flex gap-3 border p-2 w-80"
                 >
                   <div
                     style={{
@@ -112,7 +123,7 @@ function DetalleSesion() {
                   <div>
                     <p className="fw-bold mb-1">{se.ejercicio?.nombre}</p>
                     <small className="text-muted">
-                      {se.ejercicio?.categorias?.map((c: any) => c.nombre).join(', ')}
+                      {se.ejercicio?.descripcion}
                     </small>
                   </div>
                 </div>

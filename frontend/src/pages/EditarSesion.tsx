@@ -142,11 +142,11 @@ function EditarSesion() {
                   required
                 >
                   <option value="">Selecciona una categoría</option>
-                  <option value="Calentamiento">Calentamiento</option>
-                  <option value="Técnica">Técnica</option>
-                  <option value="Táctica">Táctica</option>
-                  <option value="Físico">Físico</option>
-                  <option value="Mixta">Mixta</option>
+                  <option value="Ataque">Ataque</option>
+                  <option value="Defensa">Defensa</option>
+                  <option value="Contrataque">Contrataque</option>
+                  <option value="Mixto">Mixto</option>
+                  <option value="Otra">Otra</option>
                 </select>
               </div>
 

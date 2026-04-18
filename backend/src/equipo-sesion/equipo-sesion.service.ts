@@ -51,7 +51,7 @@ export class EquipoSesionService {
 
   async findAll() {
     return this.equipoSesionRepository.find({
-      relations: ['sesion', 'sesion.sesion_ejercicio', 'sesion.sesion_ejercicio.ejercicio', 'equipo'],
+      relations: ['sesion', 'sesion.sesion_ejercicio', 'sesion.sesion_ejercicio.ejercicio', 'equipo', 'equipo.club'],
     });
   }
 

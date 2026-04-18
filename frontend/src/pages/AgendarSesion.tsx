@@ -26,6 +26,7 @@ function AgendarSesion() {
   const [horarioSugerido, setHorarioSugerido] = useState<any>(null);
   const [error, setError] = useState('');
   const [exito, setExito] = useState(false);
+  
 
   useEffect(() => {
     const cargar = async () => {
@@ -146,7 +147,6 @@ function AgendarSesion() {
                   required
                 />
               </div>
-
               {horarioSugerido && (
                 <div className="mb-3 p-3 border" style={{ backgroundColor: '#f8f8f8' }}>
                   <small className="text-muted d-block mb-1">Horario sugerido para el equipo</small>
@@ -203,7 +203,7 @@ function AgendarSesion() {
                     <div>
                       <p className="fw-bold mb-1">{se.ejercicio?.nombre}</p>
                       <small className="text-muted">
-                        {se.ejercicio?.categorias?.map((c: any) => c.nombre).join(', ')}
+                        {se.ejercicio?.descripcion}
                       </small>
                     </div>
                   </div>
