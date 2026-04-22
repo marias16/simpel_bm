@@ -50,6 +50,13 @@ export class SesionesService {
     return sesion;
   }
 
+  async findPruebas() {
+  return this.sesionRepository.find({
+    where: { prueba: true },
+    relations: ['usuario_creador', 'sesiones_agendadas', 'sesion_ejercicio', 'sesion_ejercicio.ejercicio'],
+  });
+}
+
 async findByUsuario(id_usuario: number) {
   return this.sesionRepository.find({
     where: { usuario_creador: { id_usuario } },

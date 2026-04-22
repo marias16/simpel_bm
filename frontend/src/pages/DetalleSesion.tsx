@@ -134,7 +134,7 @@ function DetalleSesion() {
       </div>
 
       <BarraAcciones
-        onCancelar={() => navigate('/sesiones')}
+        onCancelar={() => navigate(-1)}
         textoCancelar="Atrás"
         textoConfirmar="Agendar"
         tipoConfirmar="button"

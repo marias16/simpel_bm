@@ -99,7 +99,7 @@ function CrearSesion() {
         </div>
 
         <BarraAcciones
-          onCancelar={() => navigate('/sesiones')}
+          onCancelar={() => navigate(-1)}
           textoConfirmar="Siguiente"
           tipoConfirmar="button"
           onConfirmar={() => {

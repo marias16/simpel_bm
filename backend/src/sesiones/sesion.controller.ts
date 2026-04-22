@@ -39,6 +39,11 @@ export class SesionesController {
   return this.sesionesService.findByUsuario(+id);
   }
 
+  @Get('pruebas/todas')
+  findPruebas() {
+  return this.sesionesService.findPruebas();
+  }
+
 
   @Get(':id')
   findOne(@Param('id') id: string) {

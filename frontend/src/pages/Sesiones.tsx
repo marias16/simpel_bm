@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Layout from '../components/Layout';
 import Card from '../components/Card';
-import { getSesionesByUsuario } from '../services/sesionService';
+import { getSesionesByUsuario, getSesionesPrueba } from '../services/sesionService';
 import { toggleFavorita } from '../services/sesionService';
 
 function Sesiones() {
@@ -11,6 +11,7 @@ function Sesiones() {
   const [busqueda, setBusqueda] = useState('');
   const [filtro, setFiltro] = useState('todas');
   const [categoriaSesion, setCategoriaSesion] = useState('')
+  const [sesionesPrueba, setSesionesPrueba] = useState<any[]>([]);
   const { usuario } = useAuth();
   const navigate = useNavigate();
 
@@ -18,20 +19,35 @@ function Sesiones() {
     const cargar = async () => {
       const res = await getSesionesByUsuario(usuario!.id_usuario);
       setSesiones(res.data);
+      const resPrueba = await getSesionesPrueba();
+      setSesionesPrueba(resPrueba.data);
     };
     cargar();
   }, [usuario]);
 
-const sesionesFiltradas = sesiones.filter((s) => {
-  const coincideBusqueda = s.nombre.toLowerCase().includes(busqueda.toLowerCase());
-  const coincideCategoria = categoriaSesion ? s.categoria_sesion == categoriaSesion : true;
+const sesionesFiltradas = (() => {
+  let fuente;
+  if (filtro === 'prueba') {
+    fuente = sesionesPrueba;
+  } else if (filtro === 'todas') {
+    const ids = sesiones.map((s: any) => s.id_sesion);
+    const pruebasExternas = sesionesPrueba.filter((s: any) => !ids.includes(s.id_sesion));
+    fuente = [...sesiones, ...pruebasExternas];
+  } else {
+    fuente = sesiones;
+  }
 
-  if (filtro === 'prueba') return coincideBusqueda && coincideCategoria && s.prueba;
-  if (filtro === 'favoritas') return coincideBusqueda && coincideCategoria && s.favorita;
-  if (filtro === 'asignadas') return coincideBusqueda && coincideCategoria && s.sesiones_agendadas?.length > 0;
-  if (filtro === 'no_asignadas') return coincideBusqueda && coincideCategoria && (!s.sesiones_agendadas || s.sesiones_agendadas.length === 0);
-  return coincideBusqueda && coincideCategoria;
-});
+  return fuente.filter((s) => {
+    const coincideBusqueda = s.nombre.toLowerCase().includes(busqueda.toLowerCase());
+    const coincideCategoria = categoriaSesion ? s.categoria_sesion == categoriaSesion : true;
+
+    if (filtro === 'prueba') return coincideBusqueda && coincideCategoria;
+    if (filtro === 'favoritas') return coincideBusqueda && coincideCategoria && s.favorita;
+    if (filtro === 'asignadas') return coincideBusqueda && coincideCategoria && s.sesiones_agendadas?.length > 0;
+    if (filtro === 'no_asignadas') return coincideBusqueda && coincideCategoria && (!s.sesiones_agendadas || s.sesiones_agendadas.length === 0);
+    return coincideBusqueda && coincideCategoria;
+  });
+})();
 
 const tabs = [
   { label: 'Todas', valor: 'todas' },
@@ -69,7 +85,7 @@ const tabs = [
           style={{width:"30%"}}
           required
           >
-          <option value="">Selecciona una categoría</option>
+          <option value="">Categoría</option>
           <option value="Ataque">Ataque</option>
           <option value="Defensa">Defensa</option>
           <option value="Contrataque">Contrataque</option>
@@ -105,11 +121,11 @@ const tabs = [
                 .slice(0, 4)
                 .map((se: any) => se.ejercicio?.imagen)
                 }
-                favorita={s.favorita}
-                onFavorita={async () => {
-                await toggleFavorita(s.id_sesion);
-                const res = await getSesionesByUsuario(usuario!.id_usuario);
-                setSesiones(res.data);
+                favorita={s.prueba ? undefined : s.favorita}
+                  onFavorita={s.prueba ? undefined : async () => {
+                    await toggleFavorita(s.id_sesion);
+                    const res = await getSesionesByUsuario(usuario!.id_usuario);
+                    setSesiones(res.data);
                 }}
                 onClick={() => navigate(`/sesiones/${s.id_sesion}`)}
             />
