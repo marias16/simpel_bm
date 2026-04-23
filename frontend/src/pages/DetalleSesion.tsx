@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import BarraAcciones from '../components/BarraAcciones';
 import { getSesion, toggleFavorita, eliminarSesion } from '../services/sesionService';
 import { getEjerciciosBySesion } from '../services/sesionEjercicioService';
+import { useAuth } from '../context/AuthContext';
 
 function DetalleSesion() {
   const { id } = useParams();
@@ -12,6 +13,8 @@ function DetalleSesion() {
   const [ejercicios, setEjercicios] = useState<any[]>([]);
   const [mostrarOpciones, setMostrarOpciones] = useState(false);
   const [favorita, setFavorita] = useState(false);
+  const { usuario } = useAuth();
+
 
   useEffect(() => {
     const cargar = async () => {
@@ -43,15 +46,55 @@ function DetalleSesion() {
             <span className="text-muted">{sesion.categoria_sesion} · {sesion.prueba ? 'Prueba' : 'Entrenamiento'}</span>
           </div>
           <div className="d-flex align-items-center gap-3">
-            <span
-              style={{ fontSize: '1rem', cursor: 'pointer' }}
-              onClick={async () => {
-                await toggleFavorita(+id!);
-                setFavorita(!favorita);
-              }}
-            >
-              {favorita ? 'Quitar de favoritas ♥' : 'Marcar como favorita ♡'}
-            </span>
+            {!sesion.prueba && (
+              <span
+                style={{ fontSize: '1rem', cursor: 'pointer' }}
+                onClick={async () => {
+                  await toggleFavorita(+id!);
+                  setFavorita(!favorita);
+                }}
+              >
+                {favorita ? 'Quitar de favoritas ♥' : 'Marcar como favorita ♡'}
+              </span>
+            )}
+          
+          {!sesion.prueba && usuario?.rol !== 'admin' && (  
+            <div style={{ position: 'relative' }}>
+                <button
+                  className="btn btn-outline-dark rounded-0"
+                  onClick={() => setMostrarOpciones(!mostrarOpciones)}
+                >
+                  Opciones
+                </button>
+                {mostrarOpciones && (
+                  <div
+                  className="border bg-white"
+                  style={{ position: 'absolute', right: 0, top: '100%', zIndex: 10, minWidth: '150px' }}
+                >
+                  <div
+                    className="p-2 d-flex align-items-center gap-2"
+                    style={{ cursor: 'pointer' }}
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#f0f0f0')}
+                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'white')}
+                    onClick={() => { setMostrarOpciones(false); navigate(`/sesiones/editar/${id}`); }}
+                  >
+                    ✏️ Editar
+                  </div>
+                  <div
+                    className="p-2 d-flex align-items-center gap-2 text-danger"
+                    style={{ cursor: 'pointer' }}
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#f0f0f0')}
+                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'white')}
+                    onClick={handleEliminar}
+                  >
+                    🗑️ Eliminar
+                  </div>
+                </div>
+                )}
+              </div>
+            )}
+
+            {sesion.prueba && usuario?.rol === 'admin' && (
             <div style={{ position: 'relative' }}>
               <button
                 className="btn btn-outline-dark rounded-0"
@@ -85,6 +128,7 @@ function DetalleSesion() {
                 </div>
               )}
             </div>
+          )}
           </div>
         </div>
 

@@ -13,6 +13,7 @@ import { getSesionesByUsuario } from '../services/sesionService';
 function CrearSesion() {
   const [paso, setPaso] = useState(1);
   const [seleccionados, setSeleccionados] = useState<any[]>([]);
+  const [idSesionCreada, setIdSesionCreada] = useState<number | null>(null);
   const [nombre, setNombre] = useState('');
   const [categoriaSesion, setCategoriaSesion] = useState('');
   const [comentarios, setComentarios] = useState('');
@@ -66,6 +67,7 @@ function CrearSesion() {
         });
       }
 
+      setIdSesionCreada(res.data.id_sesion);
       setExito(true);
     } catch (err) {
       setError('Error al crear la sesión');
@@ -78,8 +80,8 @@ function CrearSesion() {
         titulo="¡Plantilla creada!"
         mensaje={`Ya tienes "${nombre}" disponible en mis sesiones.`}
         botones={[
-          { texto: 'Agenda la sesión', ruta: '/calendario', estilo: 'primario' },
-          { texto: 'Ve a la plantilla', ruta: '/sesiones', estilo: 'secundario' },
+          { texto: 'Agenda la sesión', ruta: `/sesiones/${idSesionCreada}/agendar`, estilo: 'primario' },
+          { texto: 'Ve a plantillas', ruta: '/sesiones', estilo: 'secundario' },
         ]}
       />
     );
