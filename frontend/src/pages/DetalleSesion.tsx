@@ -56,9 +56,10 @@ function DetalleSesion() {
               >
                 {favorita ? 'Quitar de favoritas ♥' : 'Marcar como favorita ♡'}
               </span>
+              
             )}
           
-          {!sesion.prueba && usuario?.rol !== 'admin' && (  
+          {!sesion.prueba && (  
             <div style={{ position: 'relative' }}>
                 <button
                   className="btn btn-outline-dark rounded-0"
